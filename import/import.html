@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>导入书签到 Google Sheet</title>
+  <link rel="stylesheet" href="import.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>📥 书签 HTML 批量导入到 Google Sheet</h1>
+      <p>支持 Chrome / Edge / Firefox 导出的书签文件，完美保持层级分组与折叠结构</p>
+    </header>
+
+    <div class="card">
+      <h3>第一步：选择导出的 bookmarks.html 文件</h3>
+      <div id="dropZone" class="drop-zone">
+        <input type="file" id="fileInput" accept=".html,.htm" style="display:none;">
+        <p>📂 点击选择文件 或 将导出的书签 <strong>.html</strong> 拖拽到此处</p>
+      </div>
+
+      <div id="fileInfo" style="display:none; margin-top:16px;">
+        <p><strong>文件：</strong><span id="fileName"></span></p>
+        <p><strong>统计：</strong>共解析到 <span id="statBookmarks" style="color:#0F9D58; font-weight:bold;"></span> 条书签，<span id="statFolders" style="color:#1A73E8; font-weight:bold;"></span> 个目录分组</p>
+      </div>
+    </div>
+
+    <div id="settingsCard" class="card" style="display:none; margin-top:20px;">
+      <h3>第二步：导入模式设置</h3>
+      <div class="form-group">
+        <label>工作表名称：</label>
+        <input type="text" id="targetSheetName" value="Bookmarks" class="form-control">
+      </div>
+      <div class="form-group" style="margin-top:10px;">
+        <label>呈现模式：</label>
+        <label><input type="radio" name="viewMode" value="treeOutline" checked> 🌳 原生层级大纲折叠树（带折叠组按钮 [-] [+]）</label>
+        <label style="margin-left:15px;"><input type="radio" name="viewMode" value="flatTable"> 📊 标准多维表格（平铺列展示）</label>
+      </div>
+      <div class="form-group" style="margin-top:10px;">
+        <label><input type="checkbox" id="chkClearSheet" checked> 覆盖清空该工作表并重新导入</label>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button id="btnStartImport" class="btn btn-success">🚀 开始导入到 Google Sheet</button>
+      </div>
+
+      <div id="progressBox" style="display:none; margin-top:15px;">
+        <div style="height:10px; background:#E0E0E0; border-radius:5px; overflow:hidden;">
+          <div id="progressBar" style="width:0%; height:100%; background:#0F9D58;"></div>
+        </div>
+        <p id="progressText" style="font-size:12px; margin-top:5px; color:#555;"></p>
+      </div>
+
+      <div id="resultBox" style="display:none; margin-top:15px; padding:15px; background:#E6F4EA; border-radius:6px;">
+        <h4>🎉 导入成功！</h4>
+        <a id="sheetLink" href="#" target="_blank" style="color:#1A73E8; font-weight:bold;">直达 Google Sheet 查看 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/bookmark-parser.js"></script>
+  <script src="../lib/api.js"></script>
+  <script src="import.js"></script>
+</body>
+</html>

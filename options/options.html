@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>插件设置 - Google Sheet 书签同步</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 24px; max-width: 650px; margin: auto; background: #FAFAFA; }
+    .card { background: #FFF; padding: 20px; border-radius: 8px; border: 1px solid #DDD; }
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; }
+    input[type=text], input[type=url] { width: 100%; padding: 8px; border: 1px solid #CCC; border-radius: 4px; box-sizing: border-box; }
+    .btn { padding: 9px 18px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; }
+    .btn-primary { background: #0F9D58; color: #FFF; }
+    .btn-secondary { background: #E8F0FE; color: #1A73E8; margin-right: 10px; }
+    .status { margin-top: 15px; padding: 10px; border-radius: 4px; font-size: 13px; display: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>⚙️ Google Sheet 书签同步设置</h2>
+    <div class="form-group" style="margin-top:15px;">
+      <label>Google Apps Script Web App URL (必填):</label>
+      <input type="url" id="webAppUrl" placeholder="https://script.google.com/macros/s/.../exec">
+      <small style="color:#666;">在 Google 表格通过「扩展程序」->「Apps Script」部署获取的 URL</small>
+    </div>
+    <div class="form-group">
+      <label>默认工作表名称:</label>
+      <input type="text" id="defaultSheetName" value="Bookmarks">
+    </div>
+    <div class="form-group">
+      <label>默认保存分组:</label>
+      <input type="text" id="defaultFolder" value="未分类">
+    </div>
+    <div style="margin-top:20px;">
+      <button id="btnTest" class="btn btn-secondary">⚡ 测试接口连通性</button>
+      <button id="btnSave" class="btn btn-primary">💾 保存设置</button>
+    </div>
+    <div id="statusBox" class="status"></div>
+  </div>
+  <script src="../lib/api.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

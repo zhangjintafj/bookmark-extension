@@ -1,0 +1,11 @@
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #F8F9FA; color: #202124; margin: 0; padding: 30px; }
+.container { max-width: 800px; margin: 0 auto; }
+.header { margin-bottom: 24px; }
+.header h1 { font-size: 22px; color: #0F9D58; }
+.card { background: #FFF; border: 1px solid #DADCE0; border-radius: 8px; padding: 20px; }
+.drop-zone { border: 2px dashed #0F9D58; border-radius: 8px; padding: 40px; text-align: center; cursor: pointer; background: #F6FBF8; }
+.drop-zone:hover { background: #E6F4EA; }
+.form-control { padding: 8px; border: 1px solid #DADCE0; border-radius: 4px; width: 240px; }
+.btn { padding: 10px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.btn-success { background: #0F9D58; color: #FFF; font-size: 15px; }
+.btn-success:disabled { background: #A8DAB5; cursor: not-allowed; }

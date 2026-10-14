@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sheet 书签助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="logo-box">
+      <img src="../icons/icon32.png" alt="Logo" class="logo-img">
+      <span class="app-title">书签存入 Google Sheet</span>
+    </div>
+    <div class="action-icons">
+      <button id="btnOpenImport" class="icon-btn" title="导入 HTML 书签文件">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+        </svg>
+      </button>
+      <button id="btnOpenOptions" class="icon-btn" title="插件设置">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+          <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="unconfiguredAlert" class="alert-box alert-warning" style="display:none;">
+    <span>⚠️ 尚未配置 Google Apps Script 接口地址</span>
+    <button id="btnGoConfig" class="btn-sm">去配置</button>
+  </div>
+
+  <div class="content-box">
+    <div class="form-group">
+      <label for="pageTitle">书签标题</label>
+      <input type="text" id="pageTitle" class="form-control" placeholder="网页标题">
+    </div>
+
+    <div class="form-group">
+      <label for="pageUrl">网址 (URL)</label>
+      <input type="text" id="pageUrl" class="form-control" placeholder="https://...">
+    </div>
+
+    <!-- 目标工作表 与 分组目录 并排 -->
+    <div class="form-row">
+      <div class="form-group flex-1">
+        <label for="targetSheetSelect">
+          <span>目标工作表</span>
+          <span id="sheetLoadingTip" class="text-hint" style="display:none;">(读取中...)</span>
+        </label>
+        <div id="sheetSelectWrapper">
+          <select id="targetSheetSelect" class="form-control">
+            <option value="Bookmarks">Bookmarks</option>
+            <option value="__NEW__">➕ 新建工作表...</option>
+          </select>
+        </div>
+        <div id="sheetInputWrapper" style="display:none; position:relative;">
+          <input type="text" id="targetSheetInput" class="form-control" placeholder="输入新表名" style="padding-right: 26px;">
+          <button type="button" id="btnCancelNewSheet" class="btn-cancel-mini" title="返回下拉选择">✕</button>
+        </div>
+      </div>
+
+      <div class="form-group flex-1">
+        <label for="folderPath">分组目录 (支持层级)</label>
+        <input type="text" id="folderPath" class="form-control" list="folderSuggestions" placeholder="例如: 书签栏/谷歌试读">
+        <datalist id="folderSuggestions">
+          <!-- 动态载入已有的分组 -->
+        </datalist>
+      </div>
+    </div>
+
+    <!-- 备注说明独立占一行，更宽敞舒服 -->
+    <div class="form-group">
+      <label for="bookmarkNotes">备注说明 (可选)</label>
+      <input type="text" id="bookmarkNotes" class="form-control" placeholder="简短摘要或备注">
+    </div>
+
+    <div class="btn-container">
+      <button id="btnSaveBookmark" class="btn btn-primary">
+        <span class="btn-text">存入 Google Sheet</span>
+        <span class="btn-loading" style="display:none;">
+          <span class="spinner"></span> 正在保存...
+        </span>
+      </button>
+    </div>
+
+    <div id="feedbackBox" class="feedback-box" style="display:none;">
+      <div id="feedbackText"></div>
+      <a id="feedbackSheetLink" href="#" target="_blank" class="sheet-link" style="display:none;">
+        打开 Google 表格 ↗
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button id="btnImportPageLink" class="footer-link-btn">
+      📂 批量导入本地书签 HTML 文件 →
+    </button>
+  </div>
+
+  <script src="../lib/bookmark-parser.js"></script>
+  <script src="../lib/api.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

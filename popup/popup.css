@@ -1,0 +1,25 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { width: 360px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #FAFAFA; color: #202124; font-size: 13px; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #0F9D58; color: #FFF; }
+.logo-box { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+.logo-img { width: 20px; height: 20px; }
+.icon-btn { background: none; border: none; font-size: 16px; cursor: pointer; padding: 2px 6px; }
+.alert-box { padding: 8px 12px; font-size: 12px; display: flex; justify-content: space-between; background: #FFF3CD; color: #856404; }
+.btn-sm { background: #0F9D58; color: #FFF; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; }
+.content-box { padding: 14px 16px; background: #FFF; }
+.form-group { margin-bottom: 10px; }
+.form-row { display: flex; gap: 8px; }
+.flex-1 { flex: 1; }
+label { display: block; font-size: 12px; color: #5F6368; margin-bottom: 4px; }
+.form-control { width: 100%; padding: 7px 9px; font-size: 13px; border: 1px solid #DADCE0; border-radius: 6px; outline: none; }
+.form-control:focus { border-color: #0F9D58; box-shadow: 0 0 0 2px rgba(15,157,88,0.2); }
+.btn { width: 100%; padding: 9px; font-size: 13px; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; }
+.btn-primary { background: #0F9D58; color: #FFF; }
+.btn-primary:hover { background: #0B8043; }
+.feedback-box { margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
+.feedback-success { background: #E6F4EA; color: #137333; }
+.feedback-error { background: #FCE8E6; color: #C5221F; }
+.feedback-warning { background: #FEF7E0; color: #B06000; }
+.sheet-link { color: #1A73E8; text-decoration: none; font-weight: 500; }
+.footer { padding: 10px; background: #F8F9FA; border-top: 1px solid #E8EAED; text-align: center; }
+.footer-link-btn { background: none; border: none; color: #1A73E8; font-size: 12px; cursor: pointer; }
