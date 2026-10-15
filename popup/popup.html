@@ -42,35 +42,52 @@
       <input type="text" id="pageUrl" class="form-control" placeholder="https://...">
     </div>
 
-    <!-- 目标工作表 与 分组目录 并排 -->
     <div class="form-row">
       <div class="form-group flex-1">
-        <label for="targetSheetSelect">
-          <span>目标工作表</span>
-          <span id="sheetLoadingTip" class="text-hint" style="display:none;">(读取中...)</span>
+        <label for="targetSheetSelect" style="display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:4px;">
+            <span>目标工作表</span>
+            <button type="button" id="btnRefreshSheets" class="icon-btn-inline" title="刷新工作表与目录列表">🔄</button>
+          </div>
+          <span id="sheetLoadingTip" class="text-hint" style="display:none;">读取中...</span>
         </label>
+        <!-- 下拉选择已有工作表（新建置顶在第一项） -->
         <div id="sheetSelectWrapper">
           <select id="targetSheetSelect" class="form-control">
-            <option value="Bookmarks">Bookmarks</option>
             <option value="__NEW__">➕ 新建工作表...</option>
+            <option value="Bookmarks" selected>Bookmarks (默认)</option>
           </select>
         </div>
+        <!-- 切换为手动输入新建工作表 -->
         <div id="sheetInputWrapper" style="display:none; position:relative;">
-          <input type="text" id="targetSheetInput" class="form-control" placeholder="输入新表名" style="padding-right: 26px;">
-          <button type="button" id="btnCancelNewSheet" class="btn-cancel-mini" title="返回下拉选择">✕</button>
+          <input type="text" id="targetSheetInput" class="form-control" placeholder="输入新表名" style="padding-right: 28px;">
+          <button type="button" id="btnCancelNewSheet" class="btn-cancel-mini" title="返回下拉列表">✕</button>
         </div>
       </div>
 
       <div class="form-group flex-1">
-        <label for="folderPath">分组目录 (支持层级)</label>
-        <input type="text" id="folderPath" class="form-control" list="folderSuggestions" placeholder="例如: 书签栏/谷歌试读">
-        <datalist id="folderSuggestions">
-          <!-- 动态载入已有的分组 -->
-        </datalist>
+        <label for="folderSelect" style="display:flex; align-items:center; justify-content:space-between;">
+          <span>分组目录 (支持层级)</span>
+          <span id="categoryLoadingTip" class="text-hint" style="display:none;">读取中...</span>
+        </label>
+        <!-- 下拉选择已有目录（新建置顶在第一项） -->
+        <div id="folderSelectWrapper">
+          <select id="folderSelect" class="form-control">
+            <option value="__NEW__">➕ 新建目录...</option>
+            <option value="书签栏" selected>书签栏 (默认)</option>
+          </select>
+        </div>
+        <!-- 切换为手动输入新建目录 -->
+        <div id="folderInputWrapper" style="display:none; position:relative;">
+          <input type="text" id="folderInput" class="form-control" placeholder="例如: 前端/Vue" style="padding-right: 28px;" list="folderSuggestions" autocomplete="off">
+          <button type="button" id="btnCancelNewFolder" class="btn-cancel-mini" title="返回下拉列表">✕</button>
+          <datalist id="folderSuggestions">
+            <!-- 动态载入已有的文件夹选项，供输入时联想 -->
+          </datalist>
+        </div>
       </div>
     </div>
 
-    <!-- 备注说明独立占一行，更宽敞舒服 -->
     <div class="form-group">
       <label for="bookmarkNotes">备注说明 (可选)</label>
       <input type="text" id="bookmarkNotes" class="form-control" placeholder="简短摘要或备注">
